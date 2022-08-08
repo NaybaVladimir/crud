@@ -1,9 +1,8 @@
-package service;
+package service.Utils;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
 
 public class FileUtils {
@@ -13,6 +12,7 @@ public class FileUtils {
 
     /**
      * Проверка существования файла
+     *
      * @param path
      */
     public static void checkFleExistence(String path) {
@@ -24,6 +24,7 @@ public class FileUtils {
 
     /**
      * Проверка расширения
+     *
      * @param path
      */
     public static void checkFileExtensionJson(String path) {
@@ -36,18 +37,11 @@ public class FileUtils {
 
     /**
      * Получить экземпляр класса Path и обработка исключения
+     *
      * @param path
      * @return
      */
-    public static Path createTempFile(String path) {
-        Path tempFile = null;
-
-        try {
-            tempFile = Files.createTempFile(path, ".json");
-        } catch (IOException e) {
-            System.exit(1);
-        }
-
-        return tempFile;
+    public static Path createPath(String path) {
+        return Paths.get(path);
     }
 }

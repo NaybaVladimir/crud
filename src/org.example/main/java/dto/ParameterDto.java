@@ -8,6 +8,7 @@ public class ParameterDto {
     private Operation operation;
     private Path inputFilePath;
     private Path outputFilePath;
+    private InputFileDataDto content;
 
     public ParameterDto(Operation operation, Path inputFilePath, Path outputFiltPath) {
         this.operation = operation;
@@ -37,5 +38,13 @@ public class ParameterDto {
 
     public void setOutputFilePath(Path outputFilePath) {
         this.outputFilePath = outputFilePath;
+    }
+
+    public InputFileDataDto getContent() {
+        return content;
+    }
+
+    public void setContent(InputFileDataDto content) {
+        this.content = content;
     }
 }

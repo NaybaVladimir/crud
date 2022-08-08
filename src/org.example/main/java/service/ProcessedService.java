@@ -1,7 +1,11 @@
 package service;
 
+import dto.InputFileDataDto;
 import dto.ParameterDto;
 import model.Operation;
+import service.Utils.FileUtils;
+import service.Utils.IoUtils;
+import service.Utils.JsonUtils;
 
 import java.nio.file.Path;
 import java.util.logging.Logger;
@@ -18,10 +22,15 @@ public class ProcessedService {
     public void processed(String[] args) {
         ParameterDto parameterDto = getParameterDto(args);
 
+        String content = IoUtils.readFileContent(parameterDto.getInputFilePath());
+        InputFileDataDto contentDto = JsonUtils.fromJson(content);
+        parameterDto.setContent(contentDto);
+
+
     }
 
     /**
-     * Получаем Дто входных пармметрова
+     * Получаем Дто входных параметров
      *
      * @param args - входной массив с параметрами
      * @return отдаем ДТО
@@ -42,7 +51,7 @@ public class ProcessedService {
     private Path getPathFromString(String path) {
         FileUtils.checkFleExistence(path);
         FileUtils.checkFileExtensionJson(path);
-        return FileUtils.createTempFile(path.substring(path.lastIndexOf(".")));
+        return FileUtils.createPath(path);
     }
 
     /**
