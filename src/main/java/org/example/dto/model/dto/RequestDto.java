@@ -1,8 +1,8 @@
-package dto;
+package org.example.dto.model.dto;
 
 import java.util.List;
 
-public class InputFileDataDto {
+public class RequestDto {
     private List criteria;
     private String startDate;
     private String endDate;

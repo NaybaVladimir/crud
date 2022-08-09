@@ -1,4 +1,4 @@
-package service.Utils;
+package org.example.dto.service.Utils;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -18,7 +18,7 @@ public class FileUtils {
     public static void checkFleExistence(String path) {
         if (!new File(path).isFile()) {
             log.warning("file does not exist " + path);
-            System.exit(1);
+            System.exit(0);
         }
     }
 
@@ -31,7 +31,7 @@ public class FileUtils {
         String thisExtension = path.substring(path.lastIndexOf(".")).toLowerCase();
         if (!EXTENSION.equals(thisExtension)) {
             log.warning("Invalid file extension - " + path);
-            System.exit(1);
+            System.exit(0);
         }
     }
 
@@ -43,5 +43,18 @@ public class FileUtils {
      */
     public static Path createPath(String path) {
         return Paths.get(path);
+    }
+
+
+    /**
+     * Получить экземпляр класса Path из String - для этого также процессим проверку расширения и наличия файла
+     *
+     * @param path Путь строкой
+     * @return отдаем Path
+     */
+    public static Path getPathFromString(String path) {
+        checkFleExistence(path);
+        checkFileExtensionJson(path);
+        return FileUtils.createPath(path);
     }
 }

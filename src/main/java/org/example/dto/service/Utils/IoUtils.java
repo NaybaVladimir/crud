@@ -1,4 +1,4 @@
-package service.Utils;
+package org.example.dto.service.Utils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +15,7 @@ public class IoUtils {
             return value;
         } catch (IOException e) {
             log.warning("file read error");
-            System.exit(1);
+            System.exit(0);
         }
 
         return null;

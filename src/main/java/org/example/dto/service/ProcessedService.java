@@ -1,17 +1,25 @@
-package service;
+package org.example.dto.service;
 
-import dto.InputFileDataDto;
-import dto.ParameterDto;
-import model.Operation;
-import service.Utils.FileUtils;
-import service.Utils.IoUtils;
-import service.Utils.JsonUtils;
+import lombok.AllArgsConstructor;
+import org.example.dto.model.Operation;
+import org.example.dto.model.dto.RequestDto;
+import org.example.dto.model.dto.ParameterDto;
+import org.example.dto.service.Utils.FileUtils;
+import org.example.dto.service.Utils.IoUtils;
+import org.example.dto.service.Utils.JsonUtils;
+import org.springframework.stereotype.Service;
 
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+@Service
+@AllArgsConstructor
 public class ProcessedService {
     private static final Logger log = Logger.getLogger(String.valueOf(ProcessedService.class));
+
+    private ClientService clientService;
+    private ProductService productService;
+    private PurchaseService purchaseService;
 
 
     /**
@@ -20,10 +28,30 @@ public class ProcessedService {
      * @param args
      */
     public void processed(String[] args) {
+//        Product product = new Product();
+//        product.setName("JDK");
+//        product.setPrice("01");
+//
+//        Client client = new Client();
+//        client.setFamilyName("Developer");
+//        client.setName("Java");
+//
+//        Purchases purchases = new Purchases();
+//        purchases.setClient(client);
+//        purchases.setPurchaseDate(new Date());
+//        purchases.getProduct().add(product);
+//
+//
+//        clientService.save(client);
+//        productService.save(product);
+//        purchaseService.save(purchases);
+        if (args.length < 3) {
+            System.exit(0);
+        }
         ParameterDto parameterDto = getParameterDto(args);
 
         String content = IoUtils.readFileContent(parameterDto.getInputFilePath());
-        InputFileDataDto contentDto = JsonUtils.fromJson(content);
+        RequestDto contentDto = JsonUtils.fromJson(content);
         parameterDto.setContent(contentDto);
 
 
@@ -37,21 +65,9 @@ public class ProcessedService {
      */
     private ParameterDto getParameterDto(String... args) {
         Operation operation = getOperation(args[0]);
-        Path inputFile = getPathFromString(args[1]);
-        Path outputFile = getPathFromString(args[2]);
+        Path inputFile = FileUtils.getPathFromString(args[1]);
+        Path outputFile = FileUtils.getPathFromString(args[2]);
         return new ParameterDto(operation, inputFile, outputFile);
-    }
-
-    /**
-     * Получить экземпляр класса Path из String - для этого также процессим проверку расширения и наличия файла
-     *
-     * @param path Путь строкой
-     * @return отдаем Path
-     */
-    private Path getPathFromString(String path) {
-        FileUtils.checkFleExistence(path);
-        FileUtils.checkFileExtensionJson(path);
-        return FileUtils.createPath(path);
     }
 
     /**

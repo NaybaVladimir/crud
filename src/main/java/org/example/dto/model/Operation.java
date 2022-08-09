@@ -1,4 +1,4 @@
-package model;
+package org.example.dto.model;
 
 public enum Operation {
     SEARCH("search"),
@@ -8,8 +8,7 @@ public enum Operation {
     private String typeOperation;
 
     Operation(String typeOperation) {
-        typeOperation = typeOperation.toLowerCase();
-        this.typeOperation = typeOperation;
+        this.typeOperation = typeOperation.toLowerCase();;
     }
 
 

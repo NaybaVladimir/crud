@@ -1,6 +1,6 @@
-package dto;
+package org.example.dto.model.dto;
 
-import model.Operation;
+import org.example.dto.model.Operation;
 
 import java.nio.file.Path;
 
@@ -8,7 +8,7 @@ public class ParameterDto {
     private Operation operation;
     private Path inputFilePath;
     private Path outputFilePath;
-    private InputFileDataDto content;
+    private RequestDto content;
 
     public ParameterDto(Operation operation, Path inputFilePath, Path outputFiltPath) {
         this.operation = operation;
@@ -40,11 +40,11 @@ public class ParameterDto {
         this.outputFilePath = outputFilePath;
     }
 
-    public InputFileDataDto getContent() {
+    public RequestDto getContent() {
         return content;
     }
 
-    public void setContent(InputFileDataDto content) {
+    public void setContent(RequestDto content) {
         this.content = content;
     }
 }
